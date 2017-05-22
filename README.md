@@ -39,4 +39,5 @@ public void Test1()
 }
 ```
 
-Simply add a static using clause `using static TstFxtr.GenFxtr;`
+Simply add a static using clause: `using static TstFxtr.GenFxtr;`
+Works best for well-designed domain classes leveraging ctor dependency injection.
