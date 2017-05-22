@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <Authors>Colin Smith</Authors>
     <Company></Company>
     <Description>Utility that aims to facilitate the creation of domain objects for use in tests.</Description>
@@ -10,8 +10,8 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>Targets netcore1.1 and can create unique, simple domain objects using reflection. Works best for well-modeled domain classes leveraging ctor dependency injection.</PackageReleaseNotes>
-    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <PackageReleaseNotes>I forgot to give things proper accessability modifiers XD</PackageReleaseNotes>
+    <AssemblyVersion>0.0.3.1</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
