@@ -2,7 +2,7 @@
 
 namespace TstFxtr
 {
-    class GenFxtr
+    public class GenFxtr
     {
         private static readonly ObjectGenerator _generator;
 
@@ -11,18 +11,18 @@ namespace TstFxtr
             _generator = new ObjectGenerator();            
         }
 
-        internal static void Customize(Type type, params object[] @params)
+        public static void Customize(Type type, params object[] @params)
         {
             _generator.Customize(type)
                 .ConstructorParams(@params);
         }
 
-        internal static TEntity Create<TEntity>()
+        public static TEntity Create<TEntity>()
         {
             return _generator.Create<TEntity>();
         }
 
-        internal static TEntity[] CreateMany<TEntity>(int count = 0)
+        public static TEntity[] CreateMany<TEntity>(int count = 0)
         {
             if (count == 0)
                 count = 3;

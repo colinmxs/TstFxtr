@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace TstFxtr
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
-        public static ConstructorInfo GetSimplestCtor(this Type type)
+        internal static ConstructorInfo GetSimplestCtor(this Type type)
         {
             var ctors = type.GetConstructors();
             if (ctors.Length == 0)
@@ -23,7 +23,7 @@ namespace TstFxtr
             return simplestCtor;
         }
 
-        public static bool IsDefaultValue(this Type type, object @object)
+        internal static bool IsDefaultValue(this Type type, object @object)
         {
             if (!type.GetTypeInfo().IsValueType)
             {
