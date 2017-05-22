@@ -12,6 +12,7 @@
     <PackageTags>test fixture</PackageTags>
     <PackageReleaseNotes>Targets netcore1.1 and can create unique, simple domain objects using reflection. Works best for well-modeled domain classes leveraging ctor dependency injection.</PackageReleaseNotes>
     <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
