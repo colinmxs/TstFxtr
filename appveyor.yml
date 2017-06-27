@@ -25,6 +25,8 @@ build_script:
     dotnet build -c Release
 on_success:
 - ps: >-
-    nuget.exe setApiKey $env:api_key -source https://www.nuget.org
-
-    nuget push "$env:appveyor_build_folder\src\TstFxtr\bin\Release\TstFxtr.$env:appveyor_build_version.nupkg" -source https://www.nuget.org/api/v2/package
+    if(!$env:APPVEYOR_PULL_REQUEST_NUMBER)
+    {
+      nuget.exe setApiKey $env:api_key -source https://www.nuget.org
+      nuget push "$env:appveyor_build_folder\src\TstFxtr\bin\Release\TstFxtr.$env:appveyor_build_version.nupkg" -source https://www.nuget.org/api/v2/package
+    }
