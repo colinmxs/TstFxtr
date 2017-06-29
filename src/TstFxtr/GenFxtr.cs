@@ -4,14 +4,25 @@ namespace TstFxtr
 {
     public class GenFxtr
     {
-        private static readonly ObjectGenerator _generator;
+        public static readonly ObjectGenerator _generator;
 
         static GenFxtr()
         {
             _generator = new ObjectGenerator();            
         }
 
+        /// <summary>
+        /// Specify the objects that should be passed as the constructor parameters when an object of the provided Type is created.
+        /// </summary>
+        /// <param name="type">The Type to customize</param>
+        /// <param name="params">The params to pass into the ctor</param>
         public static void Customize(Type type, params object[] @params)
+        {
+            _generator.Customize(type)
+                .ConstructorParams(@params);
+        }
+        
+        public static void Customize(Type type, params Func<object>[] @params)
         {
             _generator.Customize(type)
                 .ConstructorParams(@params);
@@ -35,5 +46,5 @@ namespace TstFxtr
 
             return arr;
         }
-    }
+    }    
 }

@@ -35,18 +35,20 @@ namespace TstFxtr.Tests
 
     public class Location
     {
-        public Location(string street, string city, string state, string zip)
+        public Location(string street, string city, string state, string zip, string country)
         {
             Street = street;
             City = city;
             State = state;
             Zip = zip;
+            Country = country;
         }
 
         public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+        public string Country { get; set; }
     }
 
     public class ContactInfo

@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace TstFxtr
 {
-    class ObjectGenerator
+    public class ObjectGenerator
     {
         private readonly Generator _generator;
         private readonly Random _random;
@@ -20,7 +20,7 @@ namespace TstFxtr
             _customizations = new List<Customization>();
         }
 
-        internal Customization Customize(Type type)
+        public Customization Customize(Type type)
         {
             var customization = new Customization(type);
             _customizations.Add(customization);
@@ -46,7 +46,10 @@ namespace TstFxtr
                     var value = prop.GetValue(@object);
                     if (prop.PropertyType.IsDefaultValue(value))
                     {
-                        prop.SetValue(@object, Create(prop.PropertyType));
+                        if (prop.SetMethod != null)
+                        {
+                            prop.SetValue(@object, Create(prop.PropertyType));
+                        }
                     }
                 }
             }
@@ -69,7 +72,7 @@ namespace TstFxtr
                     @object = Activator.CreateInstance(type);
                     if (type == typeof(int))
                     {
-                        @object = _random.Next(1, 999999999);
+                        @object = _random.Next(1, 999);
                     }
                     if (type == typeof(DateTime))
                     {
@@ -79,6 +82,24 @@ namespace TstFxtr
                 else if (type == typeof(string))
                 {
                     @object = _generator.Generate();
+                }
+                else if(typeInfo.BaseType == typeof(Array))
+                {
+                    var elementType = type.GetElementType();
+                    var array = Array.CreateInstance(elementType, 3);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        var parameters = GetParameters(elementType);
+                        var arrayObject = Activator.CreateInstance(elementType, parameters);
+
+                        FillProperties(elementType, arrayObject);
+                        array.SetValue(arrayObject, i);
+                    }
+                    foreach (var item in array)
+                    {
+                        FillProperties(elementType, item);
+                    }
+                    @object = array;
                 }
                 else
                 {
@@ -107,7 +128,7 @@ namespace TstFxtr
         }
     }
 
-    internal class Customization
+    public class Customization
     {
         internal readonly Type InnerType;
         object[] constructorParams;
