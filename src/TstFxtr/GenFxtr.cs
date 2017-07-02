@@ -18,14 +18,18 @@ namespace TstFxtr
         /// <param name="params">The params to pass into the ctor</param>
         public static void Customize(Type type, params object[] @params)
         {
-            _generator.Customize(type)
+            var customization = new Customizer(type)
                 .ConstructorParams(@params);
+
+            _generator.Customize(customization);
         }
         
         public static void Customize(Type type, params Func<object>[] @params)
         {
-            _generator.Customize(type)
-                .ConstructorParams(@params);
+            var customization = new Customizer(type)
+                .ConstructorFuncs(@params);
+
+            _generator.Customize(customization);
         }
 
         public static TEntity Create<TEntity>()

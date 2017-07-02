@@ -72,11 +72,10 @@ namespace TstFxtr.Tests
         }
         
         //[TestMethod]
-        //public void BasicInfo()
+        //public void ValueTypePropertyCustomizations()
         //{
-        //    var person = Create<Person>();
-        //    Assert.IsTrue(WordBank.FirstNames.Get().Contains(person.FirstName));
-        //    Assert.IsTrue(WordBank.LastNames.Get().Contains(person.LastName));            
-        //}        
+        //    var firstName = "Johnny";
+        //    Customize(typeof(string)).AnyProperties(property => property.Contains("FirstName"), firstName);
+        //}
     }
 }
