@@ -2,7 +2,7 @@ version: 0.4.{build}
 image: Visual Studio 2017
 environment:
   api_key:
-    secure: yqosJiMv8Zz/0L2XDTmQhgt1JyyfkXHwILEbH88OXXLgxvccnXs2Lfnlvz2b8jXn
+    secure: N7pTAGzXcURTT9qQIKPx62XaO7xKEjUjhUC3/zcKv/Hd4qkcIPNdLqh1eJHHWJd3
 branches:
   only:
   - master
