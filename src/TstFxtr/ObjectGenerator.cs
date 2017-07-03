@@ -6,25 +6,28 @@ using System.Reflection;
 
 namespace TstFxtr
 {
-    class ObjectGenerator
+    public class ObjectGenerator
     {
         private readonly Generator _generator;
         private readonly Random _random;
-        private List<Customization> _customizations;
+        private List<Customization> _typeCustomizations;
+        private List<Customization> _propertyCustomizations;
 
         internal ObjectGenerator()
         {
             _generator = new Generator();
             _generator.SetParts(WordBank.Nouns);
             _random = new Random();
-            _customizations = new List<Customization>();
+            _typeCustomizations = new List<Customization>();
         }
 
-        internal Customization Customize(Type type)
+        public void Customize(Customization customization)
         {
-            var customization = new Customization(type);
-            _customizations.Add(customization);
-            return customization;
+            if (CustomizationExists(customization.InnerType))
+            {
+                RemoveCustomization(customization.InnerType);
+            }
+            _typeCustomizations.Add(customization);
         }
 
         internal TEntity Create<TEntity>()
@@ -46,19 +49,31 @@ namespace TstFxtr
                     var value = prop.GetValue(@object);
                     if (prop.PropertyType.IsDefaultValue(value))
                     {
-                        prop.SetValue(@object, Create(prop.PropertyType));
+                        if (prop.SetMethod != null)
+                        {
+                            prop.SetValue(@object, Create(prop.PropertyType));
+                        }
                     }
                 }
             }
         }
+        private bool CustomizationExists(Type type)
+        {
+            var customizations = _typeCustomizations.Where(c => c.InnerType == type);
+            return customizations.Count() > 0;
+        }
+        private void RemoveCustomization(Type type)
+        {
+            var customization = _typeCustomizations.Single(c => c.InnerType == type);
+            _typeCustomizations.Remove(customization);
+        }
 
         private object Create(Type type)
         {
-            var customizationExists = _customizations.Any(c => c.InnerType == type);
             object @object;
-            if (customizationExists)
+            if (CustomizationExists(type))
             {
-                @object = _customizations.Single(c => c.InnerType == type).Construct();
+                @object = _typeCustomizations.Single(c => c.InnerType == type).Construct();
                 FillProperties(type, @object);
             }
             else
@@ -69,7 +84,7 @@ namespace TstFxtr
                     @object = Activator.CreateInstance(type);
                     if (type == typeof(int))
                     {
-                        @object = _random.Next(1, 999999999);
+                        @object = _random.Next(1, 999);
                     }
                     if (type == typeof(DateTime))
                     {
@@ -79,6 +94,24 @@ namespace TstFxtr
                 else if (type == typeof(string))
                 {
                     @object = _generator.Generate();
+                }
+                else if(typeInfo.BaseType == typeof(Array))
+                {
+                    var elementType = type.GetElementType();
+                    var array = Array.CreateInstance(elementType, 3);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        var parameters = GetParameters(elementType);
+                        var arrayObject = Activator.CreateInstance(elementType, parameters);
+
+                        FillProperties(elementType, arrayObject);
+                        array.SetValue(arrayObject, i);
+                    }
+                    foreach (var item in array)
+                    {
+                        FillProperties(elementType, item);
+                    }
+                    @object = array;
                 }
                 else
                 {
@@ -107,26 +140,76 @@ namespace TstFxtr
         }
     }
 
-    internal class Customization
+    public class Wrapper
     {
         internal readonly Type InnerType;
-        object[] constructorParams;
 
-        internal Customization(Type type)
+        protected Wrapper(Type type)
         {
             InnerType = type;
         }
+    }
 
-        internal void ConstructorParams(params object[] @params)
+    public class Customizer : Wrapper
+    {
+        public Customizer(Type type) : base(type)
+        {
+        }
+
+        public ConstructorParamsCustomization ConstructorParams(params object[] @params)
+        {
+            return new ConstructorParamsCustomization(InnerType, @params);
+        }
+        public ConstructorFuncsCustomization ConstructorFuncs(params Func<object>[] @params)
+        {
+            return new ConstructorFuncsCustomization(InnerType, @params);
+        }
+    }
+
+    public abstract class Customization : Wrapper
+    {
+        public Customization(Type type) : base(type)
+        {
+        }
+
+        internal abstract object Construct();       
+    }
+
+    public class ConstructorParamsCustomization : Customization
+    {
+        object[] constructorParams;
+
+        public ConstructorParamsCustomization(Type type, params object[] @params) : base(type)
         {
             constructorParams = @params;
         }
 
-        internal object Construct()
+        internal override object Construct()
         {
             object @object = Activator.CreateInstance(InnerType, constructorParams);
-
             return @object;
+        }
+    }
+
+    public class ConstructorFuncsCustomization : Customization
+    {
+        private Func<object>[] @params;
+
+        public ConstructorFuncsCustomization(Type type, Func<object>[] @params) : base(type)
+        {
+            this.@params = @params;
+        }
+
+        internal override object Construct()
+        {
+            var paramsCount = @params.Length;
+            var ctorParams = new object[paramsCount];
+            for (int i = 0; i < paramsCount; i++)
+            {
+                ctorParams[i] = @params[i].Invoke();
+            }
+
+            return Activator.CreateInstance(InnerType, ctorParams);
         }
     }
 }

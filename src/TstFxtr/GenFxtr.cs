@@ -4,18 +4,17 @@ namespace TstFxtr
 {
     public class GenFxtr
     {
-        private static readonly ObjectGenerator _generator;
+        public static readonly ObjectGenerator _generator;
 
         static GenFxtr()
         {
             _generator = new ObjectGenerator();            
         }
-
-        public static void Customize(Type type, params object[] @params)
+        
+        public static Customizer Customize(Type type)
         {
-            _generator.Customize(type)
-                .ConstructorParams(@params);
-        }
+            return new Customizer(type);
+        }        
 
         public static TEntity Create<TEntity>()
         {
@@ -35,5 +34,5 @@ namespace TstFxtr
 
             return arr;
         }
-    }
+    }    
 }

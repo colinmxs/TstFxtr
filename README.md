@@ -1,43 +1,44 @@
-# TstFxtr
+# TstFxtr [![Build status](https://ci.appveyor.com/api/projects/status/ytngg4rgyrnfik9u/branch/master?svg=true)](https://ci.appveyor.com/project/colinmxs/tstfxtr/branch/master)
 
-Built to help simplify the "Arrange" step in test suites until Autofixture supports dotnet core.
-
+Simple Object generator for dotnet core. Valuable when 'arranging' objects during testing.
 
 **Go from this:**
 ``` c#
-[TestMethod]
-public void Test1()
+//arrange
+var thingy = new Thingy
 {
-    //arrange
-    var thingy = new Thingy
-    {
-        Prop1 = "string",
-        Prop2 = 10309,
-        Prop3 = "other string"
-    };
-
-    //act
-    var result = thingy.DoSomething();
-
-    //assert
-    Assert.Something(result);
-}
+    Prop1 = "string",
+    Prop2 = 10309,
+    Prop3 = "other string"
+};
 ```
 **To this:**
 ``` c#
-[TestMethod]
-public void Test1()
-{
-    //arrange
-    var thingy = Create<Thingy>();
-
-    //act
-    var result = thingy.DoSomething();
-
-    //assert
-    Assert.Something(result);
-}
+//arrange
+var thingy = Create<Thingy>();
 ```
 
-Simply add a static using clause: `using static TstFxtr.GenFxtr;`
-Works best for well-designed domain classes leveraging ctor dependency injection.
+## Setup
+
+1. Install TstFxtr from (Nuget)[https://www.nuget.org/packages/TstFxtr]
+2. Add a static using clause: `using static TstFxtr.GenFxtr;` to your test class.
+3. Call TstFxtr methods.
+```c#
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using static TstFxtr.GenFxtr;
+
+namespace TstFxtr.Tests
+{
+    [TestClass]
+    public class GenFxtr
+    {
+        [TestMethod]
+        public void DoesTheJob()
+        {
+            var customer = Create<Customer>();
+            Assert.IsNotNull(customer);
+        }
+    }
+}
+```
