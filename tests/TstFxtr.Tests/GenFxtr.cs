@@ -57,7 +57,9 @@ namespace TstFxtr.Tests
         public void ConstructorCustomizationExistingObject()
         {
             var person = Create<Person>();
-            Customize(typeof(Customer), person);
+            var customization = Customize(typeof(Customer))
+                .ConstructorParams(person);
+            _generator.Customize(customization);
             var customer = Create<Customer>();
             Assert.AreSame(person, customer.Person);
         }
@@ -65,7 +67,9 @@ namespace TstFxtr.Tests
         [TestMethod]
         public void ConstructorCustomizationFunc()
         {
-            Customize(typeof(Customer), new Func<Person>(() => Create<Person>()));
+            var customization = Customize(typeof(Customer))
+                .ConstructorFuncs(new Func<Person>(() => Create<Person>()));
+            _generator.Customize(customization);
             var cust1 = Create<Customer>();
             var cust2 = Create<Customer>();
             Assert.AreNotSame(cust1.Person, cust2.Person);

@@ -156,11 +156,11 @@ namespace TstFxtr
         {
         }
 
-        internal ConstructorParamsCustomization ConstructorParams(params object[] @params)
+        public ConstructorParamsCustomization ConstructorParams(params object[] @params)
         {
             return new ConstructorParamsCustomization(InnerType, @params);
         }
-        internal ConstructorFuncsCustomization ConstructorFuncs(Func<object>[] @params)
+        public ConstructorFuncsCustomization ConstructorFuncs(params Func<object>[] @params)
         {
             return new ConstructorFuncsCustomization(InnerType, @params);
         }

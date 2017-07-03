@@ -10,27 +10,11 @@ namespace TstFxtr
         {
             _generator = new ObjectGenerator();            
         }
-
-        /// <summary>
-        /// Specify the objects that should be passed as the constructor parameters when an object of the provided Type is created.
-        /// </summary>
-        /// <param name="type">The Type to customize</param>
-        /// <param name="params">The params to pass into the ctor</param>
-        public static void Customize(Type type, params object[] @params)
-        {
-            var customization = new Customizer(type)
-                .ConstructorParams(@params);
-
-            _generator.Customize(customization);
-        }
         
-        public static void Customize(Type type, params Func<object>[] @params)
+        public static Customizer Customize(Type type)
         {
-            var customization = new Customizer(type)
-                .ConstructorFuncs(@params);
-
-            _generator.Customize(customization);
-        }
+            return new Customizer(type);
+        }        
 
         public static TEntity Create<TEntity>()
         {
