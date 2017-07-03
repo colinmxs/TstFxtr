@@ -16,6 +16,10 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="CodenameGenerator" Version="1.2.36" />
   </ItemGroup>

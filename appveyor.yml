@@ -28,6 +28,7 @@ build_script:
 test_script:
 - ps: >-
     cd tests/tstfxtr.tests
+
     dotnet test -c Release --no-build
 on_success:
 - ps: >-
