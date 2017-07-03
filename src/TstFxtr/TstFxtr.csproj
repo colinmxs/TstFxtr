@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>+ general bug fixes.  + Customization API has changed...</PackageReleaseNotes>
+    <PackageReleaseNotes>+ general bug fixes.
+    + Customization API has changed...</PackageReleaseNotes>
     <AssemblyVersion>0.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
