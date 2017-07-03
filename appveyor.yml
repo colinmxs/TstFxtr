@@ -1,4 +1,4 @@
-version: 0.3.{build}
+version: 0.4.{build}
 image: Visual Studio 2017
 environment:
   api_key:
@@ -8,6 +8,8 @@ branches:
   - master
 skip_commits:
   message: /\[chore\]/
+init:
+  - git config --global core.autocrlf true
 build_script:
 - ps: >-
     dotnet restore
@@ -16,13 +18,18 @@ build_script:
 
     $xml = [xml](get-content $xmlPath)
 
-    $propertyGroup = $xml.Project.PropertyGroup[0]
+    $propertyGroup = $xml.Project.PropertyGroup
 
     $propertyGroup.Version = $env:appveyor_build_version
 
     $xml.Save($xmlPath)
 
     dotnet build -c Release
+test_script:
+- ps: >-
+    cd tests/tstfxtr.tests
+
+    dotnet test -c Release --no-build
 on_success:
 - ps: >-
     if(!$env:APPVEYOR_PULL_REQUEST_NUMBER)
