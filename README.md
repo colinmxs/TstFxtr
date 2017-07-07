@@ -20,7 +20,7 @@ var thingy = Create<Thingy>();
 
 ## Setup
 
-1. Install TstFxtr from (Nuget)[https://www.nuget.org/packages/TstFxtr]
+1. Install TstFxtr from [Nuget](https://www.nuget.org/packages/TstFxtr)
 2. Add a static using clause: `using static TstFxtr.GenFxtr;` to your test class.
 3. Call TstFxtr methods.
 ```c#
