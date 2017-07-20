@@ -50,7 +50,9 @@ namespace TstFxtr.Tests
             Assert.IsNotNull(orders.Store.Manager.Person.FirstName);
             Assert.IsNotNull(orders.Store.Manager.Person.LastName);
             Assert.IsNotNull(orders.Store.Number);
-            Assert.IsNotNull(orders.Timestamp);            
+            Assert.IsNotNull(orders.Timestamp);
+
+            var @string = Create<string>();
         }
 
         [TestMethod]
