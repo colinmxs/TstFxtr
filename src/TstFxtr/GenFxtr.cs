@@ -14,7 +14,12 @@ namespace TstFxtr
         public static Customizer Customize(Type type)
         {
             return new Customizer(type);
-        }        
+        }
+        
+        public static Provider Provide(Type type)
+        {
+            return new Provider(type);
+        }
 
         public static TEntity Create<TEntity>()
         {

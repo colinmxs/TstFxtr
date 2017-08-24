@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace TstFxtr.Tests
 {
-    public class Person
+    public interface IHaveAFirstName
+    {
+        string FirstName { get; set; }
+    }
+
+    public class Person : IHaveAFirstName
     {
         public Person(string firstName, string lastName, DateTime birthday, Location address, ContactInfo contactInfo)
         {

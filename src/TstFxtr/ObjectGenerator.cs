@@ -11,7 +11,7 @@ namespace TstFxtr
         private readonly Generator _generator;
         private readonly Random _random;
         private List<Customization> _typeCustomizations;
-        private List<Customization> _propertyCustomizations;
+        //private List<Customization> _propertyCustomizations;
 
         internal ObjectGenerator()
         {
@@ -20,6 +20,8 @@ namespace TstFxtr
             _random = new Random();
             _typeCustomizations = new List<Customization>();
         }
+
+        public void Provide() { }
 
         public void Customize(Customization customization)
         {
@@ -137,79 +139,6 @@ namespace TstFxtr
             }
 
             return parameters;
-        }
-    }
-
-    public class Wrapper
-    {
-        internal readonly Type InnerType;
-
-        protected Wrapper(Type type)
-        {
-            InnerType = type;
-        }
-    }
-
-    public class Customizer : Wrapper
-    {
-        public Customizer(Type type) : base(type)
-        {
-        }
-
-        public ConstructorParamsCustomization ConstructorParams(params object[] @params)
-        {
-            return new ConstructorParamsCustomization(InnerType, @params);
-        }
-        public ConstructorFuncsCustomization ConstructorFuncs(params Func<object>[] @params)
-        {
-            return new ConstructorFuncsCustomization(InnerType, @params);
-        }
-    }
-
-    public abstract class Customization : Wrapper
-    {
-        public Customization(Type type) : base(type)
-        {
-        }
-
-        internal abstract object Construct();       
-    }
-
-    public class ConstructorParamsCustomization : Customization
-    {
-        object[] constructorParams;
-
-        public ConstructorParamsCustomization(Type type, params object[] @params) : base(type)
-        {
-            constructorParams = @params;
-        }
-
-        internal override object Construct()
-        {
-            object @object = Activator.CreateInstance(InnerType, constructorParams);
-            return @object;
-        }
-    }
-
-    public class ConstructorFuncsCustomization : Customization
-    {
-        private Func<object>[] @params;
-
-        public ConstructorFuncsCustomization(Type type, Func<object>[] @params) : base(type)
-        {
-            this.@params = @params;
-        }
-
-        internal override object Construct()
-        {
-            var paramsCount = @params.Length;
-            var ctorParams = new object[paramsCount];
-            for (int i = 0; i < paramsCount; i++)
-            {
-                ctorParams[i] = @params[i].Invoke();
-            }
-
-            return Activator.CreateInstance(InnerType, ctorParams);
         }
     }
 }

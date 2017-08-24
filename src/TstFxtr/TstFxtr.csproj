@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>+ bug fixes</PackageReleaseNotes>
+    <PackageReleaseNotes>+ User can provide concrete object for given types using the new Provide(Type type, object @object) method</PackageReleaseNotes>
     <AssemblyVersion>0.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>

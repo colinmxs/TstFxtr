@@ -76,6 +76,18 @@ namespace TstFxtr.Tests
             var cust2 = Create<Customer>();
             Assert.AreNotSame(cust1.Person, cust2.Person);
         }
+
+        [TestMethod]
+        public void ProviderCustomization()
+        {
+            var person = Create<Person>();
+            var customization = Provide(typeof(IHaveAFirstName))
+                .Use(person);
+            _generator.Customize(customization);
+
+            var firstNamer = Create<IHaveAFirstName>();
+            Assert.AreEqual(person.FirstName, firstNamer.FirstName);
+        }
         
         //[TestMethod]
         //public void ValueTypePropertyCustomizations()
