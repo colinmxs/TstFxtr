@@ -75,8 +75,12 @@ namespace TstFxtr
             object @object;
             if (CustomizationExists(type))
             {
-                @object = _typeCustomizations.Single(c => c.InnerType == type).Construct();
-                FillProperties(type, @object);
+                var customization = _typeCustomizations.Single(c => c.InnerType == type);
+                @object = customization.Construct();
+                if(customization.GetType() != typeof(ProvideObjectCustomization))
+                {
+                    FillProperties(type, @object);
+                }
             }
             else
             {

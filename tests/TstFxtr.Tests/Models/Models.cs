@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace TstFxtr.Tests
 {
@@ -25,6 +26,14 @@ namespace TstFxtr.Tests
         public Location Address { get; set; }
         public ContactInfo ContactInfo { get; set; }
 
+    }
+
+    public class Command
+    {
+        public Guid CampId { get; set; }
+        public string CampName { get; set; }
+        public object Camp { get; set; } 
+        public ClaimsPrincipal User { get; set; }
     }
 
     public class Customer

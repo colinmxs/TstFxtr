@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Security.Claims;
 using static TstFxtr.GenFxtr;
 
 namespace TstFxtr.Tests
@@ -54,7 +55,7 @@ namespace TstFxtr.Tests
 
             var @string = Create<string>();
         }
-
+        
         [TestMethod]
         public void ConstructorCustomizationExistingObject()
         {
@@ -88,12 +89,19 @@ namespace TstFxtr.Tests
             var firstNamer = Create<IHaveAFirstName>();
             Assert.AreEqual(person.FirstName, firstNamer.FirstName);
         }
-        
-        //[TestMethod]
-        //public void ValueTypePropertyCustomizations()
-        //{
-        //    var firstName = "Johnny";
-        //    Customize(typeof(string)).AnyProperties(property => property.Contains("FirstName"), firstName);
-        //}
+
+        [TestMethod]
+        public void ProviderCustomizationReturnsObjectAsIs()
+        {
+            //had a situation where I was providing a claims principal...
+            //tstfxtr was crashing because it was trying to call the FillProperties method
+            //on the object I had supplied.
+            var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+            var customization = Provide(typeof(ClaimsPrincipal)).Use(claimsPrincipal);
+            _generator.Customize(customization);
+
+            var thingy = Create<Command>();
+            Assert.IsNotNull(thingy);
+        }        
     }
 }
