@@ -45,14 +45,14 @@ namespace TstFxtr
             foreach (var prop in publicProperties)
             {
                 if (prop.PropertyType != typeof(string) && prop.PropertyType.GetTypeInfo().GetInterface("IEnumerable") != null)
-                { }
+                { }                
                 else
                 {
                     var value = prop.GetValue(@object);
                     if (prop.PropertyType.IsDefaultValue(value))
-                    {
+                    {                        
                         if (prop.SetMethod != null)
-                        {
+                        {                            
                             prop.SetValue(@object, Create(prop.PropertyType));
                         }
                     }
@@ -95,6 +95,10 @@ namespace TstFxtr
                     if (type == typeof(DateTime))
                     {
                         @object = DateTime.UtcNow.AddDays(_random.Next(90));
+                    }
+                    if (type == typeof(Guid))
+                    {
+                        @object = Guid.NewGuid();
                     }
                 }
                 else if (type == typeof(string))

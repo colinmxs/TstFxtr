@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>+ bug fix affecting the Provide method</PackageReleaseNotes>
+    <PackageReleaseNotes>+ Guid properties are going to be generated instead of using default value.</PackageReleaseNotes>
     <AssemblyVersion>0.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>

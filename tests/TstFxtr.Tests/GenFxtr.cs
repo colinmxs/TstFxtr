@@ -102,6 +102,13 @@ namespace TstFxtr.Tests
 
             var thingy = Create<Command>();
             Assert.IsNotNull(thingy);
-        }        
+        }  
+
+        [TestMethod]
+        public void Guids()
+        {
+            var guid = Create<Guid>();
+            Assert.AreNotEqual(new Guid(), guid);
+        }
     }
 }
