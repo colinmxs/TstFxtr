@@ -10,13 +10,13 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>+ bug fix affecting the Provide method</PackageReleaseNotes>
+    <PackageReleaseNotes>+ updated dependencies</PackageReleaseNotes>
     <AssemblyVersion>0.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CodenameGenerator" Version="1.2.37" />
+    <PackageReference Include="CodenameGenerator" Version="1.2.38" />
   </ItemGroup>
 
 </Project>
