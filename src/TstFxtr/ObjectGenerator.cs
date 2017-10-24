@@ -94,7 +94,7 @@ namespace TstFxtr
                     }
                     if (type == typeof(DateTime))
                     {
-                        @object = DateTime.UtcNow.AddDays(_random.Next(90));
+                        @object = DateTime.Now.AddDays(_random.Next(90));
                     }
                     if (type == typeof(Guid))
                     {
