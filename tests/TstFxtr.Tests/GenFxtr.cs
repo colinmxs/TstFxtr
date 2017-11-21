@@ -110,5 +110,16 @@ namespace TstFxtr.Tests
             var guid = Create<Guid>();
             Assert.AreNotEqual(new Guid(), guid);
         }
+
+        [TestMethod]
+        public void ProviderCustomizationFunc()
+        {
+            var customization = Provide(typeof(IHaveAFirstName))
+                .Use(Create<Person>);
+            _generator.Customize(customization);
+
+            var firstNamer = Create<IHaveAFirstName>();
+            Assert.IsNotNull(firstNamer);
+        }
     }
 }

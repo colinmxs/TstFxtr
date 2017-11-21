@@ -12,5 +12,10 @@ namespace TstFxtr
         {
             return new ProvideObjectCustomization(InnerType, @object);
         }
+
+        public ProvideFuncCustomization Use(Func<object> func)
+        {
+            return new ProvideFuncCustomization(InnerType, func);
+        }
     }
 }
