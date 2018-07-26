@@ -16,7 +16,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CodenameGenerator" Version="1.2.38" />
+    <PackageReference Include="CodenameGenerator" Version="1.2.41" />
   </ItemGroup>
 
 </Project>
