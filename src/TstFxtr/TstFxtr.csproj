@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/colinmxs/TstFxtr</PackageProjectUrl>
     <RepositoryUrl>https://github.com/colinmxs/TstFxtr</RepositoryUrl>
     <PackageTags>test fixture</PackageTags>
-    <PackageReleaseNotes>+ Provide customization can now accept a Func</PackageReleaseNotes>
+    <PackageReleaseNotes>+ Add ImageUrl generator</PackageReleaseNotes>
     <AssemblyVersion>0.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
