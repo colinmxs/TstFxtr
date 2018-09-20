@@ -28,5 +28,13 @@ namespace TstFxtr
                 return new Generator(", ", Casing.PascalCase, WordBank.Cities, WordBank.StateNames);
             }
         }
+
+        public static Generator ImageUrlGenerator
+        {
+            get
+            {
+                return new Generator("", Casing.LowerCase, GeneratorWordBanks.ImgUrls);
+            }
+        }
     }
 }
